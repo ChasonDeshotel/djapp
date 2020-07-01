@@ -1,0 +1,9 @@
+% if (my $confirmation = flash 'confirmation') {
+	<p><%= $confirmation %></p>
+% }
+%= form_for register => (method => 'POST', enctype => 'application/x-www-form-urlencoded') => begin
+	%= text_field 'username'
+	%= text_field 'password'
+	%= submit_button
+% end
+

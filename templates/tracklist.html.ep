@@ -1,0 +1,9 @@
+
+<!DOCTYPE html>
+<html>
+  <head><title>Sebastians frameworks</title></head>
+  <body>
+    <ul>
+			<li><%= $artist . ' - ' . $title %></li>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+package DJApp::Model::Set;
+use lib qw(lib);
+use DJApp::DB;
+use DJApp::Model::Track;
+
+sub get_tracklist {
+	my $dbh = DJApp::DB->new();
+	return $dbh->selectall_hashref('select id, artist, title from tracklists', 'id');
+}
+
+sub get_download {
+	# different formats?
+	return 1
+}
+
+has tracks => (
+	isa => 'ArrayRef[DJApp::Model::Track]'
+	, is => 'rw'
+);
+
+has artist => (
+	is => 'ro'
+);
+
+has title => (
+	is => 'ro'
+);
+
+has id => (
+	is => 'ro'
+);
+
+1;

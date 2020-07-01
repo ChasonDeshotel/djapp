@@ -1,0 +1,37 @@
+[2020-05-24 05:55:26.14523] [28358] [info] Listening at "https://*:8080"
+[2020-05-24 05:55:26.15162] [28359] [info] Manager 28359 started
+[2020-05-24 05:55:26.15998] [28360] [info] Worker 28360 started
+[2020-05-24 05:55:26.16139] [28361] [info] Worker 28361 started
+[2020-05-24 05:55:26.16770] [28363] [info] Worker 28363 started
+[2020-05-24 05:55:26.16832] [28359] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 05:55:26.16270] [28362] [info] Worker 28362 started
+[2020-05-24 05:56:18.21628] [28359] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 05:56:22.22038] [28359] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 05:56:33.23114] [28359] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 05:57:04.27582] [28359] [info] Starting zero downtime software upgrade (180 seconds)
+[2020-05-24 05:57:04.60706] [28393] [info] Listening at "https://*:8080"
+[2020-05-24 05:57:04.60737] [28393] [info] Manager 28393 started
+[2020-05-24 05:57:04.61180] [28396] [info] Worker 28396 started
+[2020-05-24 05:57:04.61328] [28395] [info] Worker 28395 started
+[2020-05-24 05:57:04.61559] [28397] [info] Worker 28397 started
+[2020-05-24 05:57:04.61611] [28394] [info] Worker 28394 started
+[2020-05-24 05:57:04.61656] [28393] [info] Upgrade successful, stopping 28359
+[2020-05-24 05:57:04.61705] [28359] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 05:57:04.61721] [28359] [info] Stopping worker 28360 gracefully (120 seconds)
+[2020-05-24 05:57:04.61726] [28359] [info] Stopping worker 28361 gracefully (120 seconds)
+[2020-05-24 05:57:04.61731] [28359] [info] Stopping worker 28363 gracefully (120 seconds)
+[2020-05-24 05:57:04.61735] [28359] [info] Stopping worker 28362 gracefully (120 seconds)
+[2020-05-24 05:57:04.66498] [28359] [info] Worker 28360 stopped
+[2020-05-24 05:57:04.66622] [28359] [info] Worker 28363 stopped
+[2020-05-24 05:57:04.66646] [28359] [info] Worker 28361 stopped
+[2020-05-24 05:57:04.66680] [28359] [info] Worker 28362 stopped
+[2020-05-24 05:57:04.66687] [28359] [info] Manager 28359 stopped
+[2020-05-24 07:15:04.16377] [28393] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 07:18:38.44164] [28393] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 07:19:55.51651] [28393] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 07:20:22.54432] [28393] [info] Creating process id file "/srv/www/djapp/script/hypnotoad.pid"
+[2020-05-24 07:21:41.37004] [28393] [warn] Stopping worker 28396 immediately
+[2020-05-24 07:21:41.37117] [28393] [info] Worker 28396 stopped
+[2020-05-24 07:21:41.37128] [28393] [warn] Stopping worker 28397 immediately
+[2020-05-24 07:21:41.37255] [28393] [info] Worker 28397 stopped
+[2020-05-24 07:21:41.37262] [28393] [warn] Stopping worker 28395 immediately
