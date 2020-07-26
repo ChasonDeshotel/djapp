@@ -3,21 +3,48 @@
 	<ul class="collection with-header">
 		<li class="collection-header">
 			<h1><%= $mix->title %></h1>
-			<p>
-				%= $mix->date_live
-				% if ($mix->download_link) {
-					<br>
-					<a href="<%= $mix->download_link %>">
-						download
-						<!-- format/filesize -->
-					</a>
-				% }
-			</p>
+			
+			<div class="row">
+			
+				<div class="col sm12 md6 grey lighten-4 padding-19">
+					<i class="material-icons play_arrow">play_arrow</i>
+					<span>play streaming audio broadcast live on <%= $mix->date_live %></sspan>
+				</div>
+
+				<div class="secondary-content">
+							<a href="<%= $mix->download_link %>">
+								<i class="material-icons">share</i>
+							</a>
+							<a href="<%= $mix->download_link %>">
+								<i class="material-icons">cloud</i>
+							</a>
+							<a href="<%= $mix->download_link %>">
+								<i class="material-icons">play_arrow</i>
+							</a>
+							<a href="<%= $mix->download_link %>">
+								<i class="material-icons">file_download</i>
+							</a>
+				</div>
+
 		</li>
-		% for my $track (@{$mix->tracks}) {
-			<li class="collection-item">
-				<%= $track->artist %> - <%= $track->title %>
-			</li>
+
+
+		% if ($mix->tracks) {
+			% for my $track (@{$mix->tracks}) {
+				<li class="collection-item avatar">
+					<img class="circle" src="https://www.demilked.com/magazine/wp-content/uploads/2015/01/age-of-happiness-active-seniors-vladimir-yakovlev-5.jpg">
+					<span class="artist grey-text text-darken-1"><strong><%= $track->artist %></strong></span><br>
+					<span class="artist grey-text text-darken-6"><em><%= $track->title %></em>
+					<div class="secondary-content">
+						<a href="<%= $mix->download_link %>">
+							<i class="material-icons grey-text">filter_5</i><br>
+							<span class="counter grey-text">0</>
+						</a>
+					</div>
+				</li>
+			% }
+		% } else {
+			<li class="collection-item">Tracklist not available</li>
 		% }
 	</ul>
 

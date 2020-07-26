@@ -4,17 +4,18 @@
 
 			<div class="card blue-grey darken-1">
 				<div class="card-content white-text">
-					<span class="card-title">Live now</span>
-					<span><i class="material-icons circle">surround_sound</i>Currently playing: <%= 'foo' %></span>
+					<span class="card-title"><em>Live now!</em></span>
+					<!--<span><i class="material-icons circle">surround_sound</i>Currently playing: <%= 'foo' %></span>-->
+					<span>Currently playing: <%= 'foo' %></span>
 				</div>
 				<div class="card-action">
-					<a href="#">audio stream</a>
-					<a href="#">video stream</a>
+					<a href="#"><i class="material-icons">audiotrack</i>audio stream</a>
+					<a href="#"><i class="material-icons">videocam</i>video stream</a>
 				</div>
 			</div>
 
 			<ul class="collection with-header">
-				<li class="collection-header"><h2>Current Tracklist</h2></li>
+				<li class="collection-header"><h2 class="flow-text">Current Tracklist</h2></li>
 				% for my $track (@{$user->live_mix->tracks}) {
 					<li class="collection-item">
 						<%= $track->artist %> - <%= $track->title %>
@@ -60,7 +61,7 @@
 		<div class="col s12 m4">
 			<div class="card">
 				<ul class="collection with-header">
-					<li class="collection-header"><h2>Latest Mixes</h2></li>
+					<li class="collection-header"><h2 class="flow-text">Latest Mixes</h2></li>
 					% for my $mix (@{$user->mixes}) {
 						<li class="collection-item avatar">
 							<i class="material-icons circle">music_note</i>
@@ -70,12 +71,18 @@
 								</a>
 							</span>
 							<p>
-								<%= $mix->date_live %>
+								<%= $mix->date_live %><br>
+								<em class="grey-text">dnb, dubstep, rap<br>314 minutes</em>
 							</p>
 							% if ($mix->download_link) {
-								<a class="secondary-content" href="<%= $mix->download_link %>">
-									<i class="material-icons">file_download</i>
-								</a>
+								<div class="secondary-content">
+									<a href="<%= $mix->download_link %>">
+										<i class="material-icons">play_arrow</i>
+									</a>
+									<a href="<%= $mix->download_link %>">
+										<i class="material-icons">file_download</i>
+									</a>
+								</div>
 							% }
 						</li>
 					% }

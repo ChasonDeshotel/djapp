@@ -7,6 +7,16 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<style type="text/css">
+			#broadcast_live_title {
+				margin-bottom:0;
+			}
+			.play_arrow {
+				margin-bottom:0;
+				position:relative;
+				top:8px;
+			}
+		</style>
 
 	</head>
 
@@ -14,11 +24,30 @@
 		<main>
 
 			<nav>
-				<div class="nav-wrapper deep-purple darken-4">
-					<a href="#" class="brand-logo"><%= $user->name_dj %></a>
+				<div class="nav-wrapper <%= $user->theme_color %>">
+					<a href="/<%= $user->slug %>" class="brand-logo center"><%= $user->name_dj %></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
-						<li><a href="/<%= $user->slug %>">Home</a></li>
-						<li><a href="/<%= $user->slug %>/mixes">Mixes</a></li>
+
+						% if ($self->url_for eq '/' . $user->slug) {
+							<li class="active">
+						% } else {
+							<li>
+						% }
+							<a href="/<%= $user->slug %>">
+								Home
+							</a>
+						</li>
+
+						% if ($self->url_for eq '/' . $user->slug . '/mixes') {
+							<li class="active">
+						% } else {
+							<li>
+						% }
+							<a href="/<%= $user->slug %>/mixes">
+								Mixes
+							</a>
+						</li>
+
 						<!--<li><div class="input-field"><input class="white-text" placeholder="Search" id="search" type="text"></div></li>-->
 					</ul>
 				</div>
