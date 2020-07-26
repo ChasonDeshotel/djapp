@@ -29,6 +29,8 @@ sub startup {
 	$r->get('/')->to(template => 'index');
 	$r->get('/register')->to(template => 'register');
 	$r->post('/register')->to(controller => 'Registration', action => 'register');
+	$r->get('/login')->to(controller => 'Auth', template => 'login');
+	$r->post('/login')->to(controller => 'Auth', action => 'log_in');
 
 	### user routes
 	$r->get('/:slug')->to(controller => 'User', action => 'view', template => 'user-page');
@@ -41,9 +43,10 @@ sub startup {
 
 	### mix routes
 	$r->get('/:slug/mix/:id')->to(controller => 'Mix', action => 'view', template => 'mix');
+	$r->get('/:slug/mixes')->to(controller => 'User', action => 'view_mixes', template => 'mixes');
 	$r->get('/mix/:id')->to(controller => 'Mix', action => 'view');
 	$r->get('/mix/:id/:action')->to(controller => 'Mix');
-	$r->post('/mix/:action')->to(controller => 'Mix');
+	$r->post('/:slug/mix/:action')->to(controller => 'Mix');
 
 	### tracklist routes
 
