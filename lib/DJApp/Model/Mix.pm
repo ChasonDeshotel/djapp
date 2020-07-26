@@ -3,7 +3,6 @@ use Moo;
 use Types::Standard qw(Str Int Undef);
 use MooX::Types::MooseLike::Base qw(ArrayRef);
 
-use lib qw(lib);
 use DJApp::DB;
 use DJApp::Model::Track;
 use DJApp::Model::File;
