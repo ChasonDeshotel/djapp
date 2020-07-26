@@ -24,31 +24,28 @@
 		<main>
 
 			<nav>
-				<div class="nav-wrapper <%= $user->theme_color %>">
-					<a href="/<%= $user->slug %>" class="brand-logo center"><%= $user->name_dj %></a>
+				<div class="nav-wrapper deep-purple darken-4">
+					<a href="#" class="brand-logo center">DJApp</a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
 
-						% if ($self->url_for eq '/' . $user->slug) {
-							<li class="active">
-						% } else {
-							<li>
-						% }
-							<a href="/<%= $user->slug %>">
+						<li>
+							<a href="/">
 								Home
 							</a>
 						</li>
 
-						% if ($self->url_for eq '/' . $user->slug . '/mixes') {
-							<li class="active">
-						% } else {
-							<li>
-						% }
-							<a href="/<%= $user->slug %>/mixes">
-								Mixes
+						<li>
+							<a href="/login">
+								Log in
 							</a>
 						</li>
 
-						<!--<li><div class="input-field"><input class="white-text" placeholder="Search" id="search" type="text"></div></li>-->
+						<li>
+							<a href="/register">
+								Register
+							</a>
+						</li>
+
 					</ul>
 				</div>
 			</nav>
