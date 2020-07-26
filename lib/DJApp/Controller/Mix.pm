@@ -40,47 +40,4 @@ sub delete {
 	$self->render(text => $res);
 }
 
-#sub download {
-#	my $c = shift;
-#	$c->render(text => 'if a download was a available it would download');
-#}
-#
-### POST METHODS
-#
-#sub append {
-#	my $c = shift;
-#
-#	# Require authentication
-#	if (not secure_compare $c->req->url->to_abs->userinfo, 'test:test123') {
-#		$c->res->headers->www_authenticate('Basic');
-#		$c->render(text => 'Authentication required!', status => 401);
-#		return 1
-#	}
-#
-#	#my $track = $c->track->new({
-#	#	'artist' => $c->param('artist')
-#	#	, 'title' => $c->param('title')
-#	#});
-#
-#	$c->conn->run(fixup => sub {
-#		$_->do(
-#			'insert into tracklists (artist, title) values (?,?)'
-#			, undef
-#			, $c->param('artist') #$track->{artist}
-#			, $c->param('title') #$track->{title}
-#			#, $set_id
-#		);
-#	});
-#
-#	$c->render(
-#		template  => 'tracklist'
-#		, artist  => $c->param('artist')
-#		, title   => $c->param('title')
-#	);
-#}
-#
-#sub upload {
-#	# this will upload a mix and attach it to the specified tracklist
-#}
-
 1;
