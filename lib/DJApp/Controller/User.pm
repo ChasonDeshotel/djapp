@@ -14,6 +14,11 @@ sub view {
 	$self->stash(title => 'DJAPP', user => $self->user_from_slug);
 }
 
+sub view_mixes {
+	my $self = shift;
+	$self->stash(title => 'DJAPP', user => $self->user_from_slug);
+}
+
 sub set_live {
 	my $self = shift;
 	$self->user_from_slug->set_live($self->param('is_live'));
