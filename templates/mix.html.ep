@@ -1,22 +1,19 @@
 <div class="row">
-		<h1>
-			<%= $mix->title %>
-		</h1>
-		<span class="date">
-			%= $mix->date_live
-		</span>
-
-
-	% if ($mix->download_link) {
-		<span class="download_link">
-			<a href="<%= $mix->download_link %>">
-				download
-			</a>
-		</span>
-	% }
 
 	<ul class="collection with-header">
-		<li class="collection-header"><h2>Tracklist</h2></li>
+		<li class="collection-header">
+			<h1><%= $mix->title %></h1>
+			<p>
+				%= $mix->date_live
+				% if ($mix->download_link) {
+					<br>
+					<a href="<%= $mix->download_link %>">
+						download
+						<!-- format/filesize -->
+					</a>
+				% }
+			</p>
+		</li>
 		% for my $track (@{$mix->tracks}) {
 			<li class="collection-item">
 				<%= $track->artist %> - <%= $track->title %>
