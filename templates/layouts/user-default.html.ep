@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<title><%= title %></title>
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"></script>-->
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<style type="text/css">
+			#broadcast_live_title {
+				margin-bottom:0;
+			}
+			.play_arrow {
+				margin-bottom:0;
+				position:relative;
+				top:8px;
+			}
+		</style>
+
+	</head>
+
+  <body>
+		<main>
+
+			<nav>
+				<div class="nav-wrapper <%= $user->theme_color %>">
+					<a href="/<%= $user->slug %>" class="brand-logo center"><%= $user->name_dj %></a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+
+						% if ($self->url_for eq '/' . $user->slug) {
+							<li class="active">
+						% } else {
+							<li>
+						% }
+							<a href="/<%= $user->slug %>">
+								Home
+							</a>
+						</li>
+
+						% if ($self->url_for eq '/' . $user->slug . '/mixes') {
+							<li class="active">
+						% } else {
+							<li>
+						% }
+							<a href="/<%= $user->slug %>/mixes">
+								Mixes
+							</a>
+						</li>
+
+						<!--<li><div class="input-field"><input class="white-text" placeholder="Search" id="search" type="text"></div></li>-->
+					</ul>
+				</div>
+			</nav>
+
+			<div class="container">
+				% if (my $message = flash 'message') {
+					<div class="row">
+						<div class="card blue-grey darken-1">
+							<div class="card-content white-text">
+								<span class="card-title">Notice</span>
+								<p><%= $message %></p>
+							</div>
+						</div>
+					</div>
+				% }
+
+				% if (my $error = flash 'error') {
+					<div class="row">
+						<div class="card blue-grey darken-1">
+							<div class="card-content white-text">
+								<span class="card-title">Notice</span>
+								<p><%= $error %></p>
+							</div>
+						</div>
+					</div>
+				% }
+
+
+				<%= content %>
+			</div>
+
+		</main>
+
+		<!--
+		<footer class="page-footer deep-purple darken-4">
+			<div class="footer-copyright">
+				<div class="container">
+					copyright text
+				</div>
+		</footer>
+		-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	</body>
+</html>
