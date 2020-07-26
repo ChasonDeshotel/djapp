@@ -9,7 +9,9 @@ sub startup {
   my $config = $self->plugin('Config');
   #$self->secrets($config->{secrets});
 	#$self->plugin('DefaultHelpers');
-		
+	
+	$self->defaults(layout => 'default'); 
+	
 	my $conn = DBIx::Connector->new($config->{conn_str});
 	my $dbh = $conn->dbh;
 	$self->helper(dbh => sub { state $dbh = $conn->dbh });
@@ -28,14 +30,20 @@ sub startup {
 
 	my $r = $self->routes;
 
+	### user routes
+	$r->get('/:slug')->to(controller => 'User', action => 'view', template => 'user-page');
+	$r->get('/:slug/set_live/:is_live')->to(controller => 'User', action => 'set_live', template => 'user-page');
+
 	### track routes
 	$r->get('/track/:id')->to(controller => 'Track', action => 'view');
 	$r->get('/track/:id/:action')->to(controller => 'Track');
 	$r->post('/track/:action')->to(controller => 'Track');
 
-	$r->get('/set/:id')->to(controller => 'Set', action => 'view');
-	$r->get('/set/:id/:action')->to(controller => 'Set');
-	$r->post('/set/:action')->to(controller => 'Set');
+	### mix routes
+	$r->get('/:slug/mix/:id')->to(controller => 'Mix', action => 'view', template => 'mix');
+	$r->get('/mix/:id')->to(controller => 'Mix', action => 'view');
+	$r->get('/mix/:id/:action')->to(controller => 'Mix');
+	$r->post('/mix/:action')->to(controller => 'Mix');
 
 
 	### tracklist routes

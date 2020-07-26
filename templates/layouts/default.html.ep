@@ -1,5 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head><title><%= title %></title></head>
+  <head>
+		<title><%= title %></title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"></script>
+		<style type="text/css">
+			body {
+				color:#eee;
+				background: #000;
+				text-align: center;
+			}
+			#previous_mixes {
+				width: 300px;
+			}
+			dl {
+				width: 100%;
+				overflow: hidden;
+				padding: 0;
+				margin: 0
+			}
+			dd {
+				float: left;
+				width: 50%;
+				padding: 0;
+				margin: 0;
+				text-align: right;
+			}
+			dd::after {
+				content: " - ";
+			}
+			dt {
+				float: left;
+				padding: 0;
+				margin: 0;
+				margin-left: .5em;
+				text-align: left;
+			}
+		</style>
+	</head>
+
   <body><%= content %></body>
 </html>

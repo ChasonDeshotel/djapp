@@ -11,8 +11,6 @@ sub new {
 	my $conn_str = 'dbi:Pg:dbname=djapp';
 	my $dbh = DBI->connect($conn_str);
 	
-	
-	
 	return $dbh->selectall_hashref('select id, artist, title from tracklists', 'id');
 }
 

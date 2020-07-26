@@ -6,6 +6,8 @@ create table djapp.users (
 	, name_first text
 	, name_last text
 	, name_dj text
+	, slug text unique
+	, bio text
 	, email text
 	, is_live boolean not null default false
 	, enabled boolean not null default false
