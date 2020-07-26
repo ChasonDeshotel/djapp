@@ -1,24 +1,27 @@
-<h1>
-	<%= $user->name_dj %> - <%= $mix->title %>
-</h1>
-
-<span class="date">
-	%= $mix->date_live
-</span>
-
-% if ($mix->download_link) {
-	<span class="download_link">
-		<a href="<%= $mix->download_link %>">
-			download
-		</a>
+<div class="row">
+	<h1>
+		<%= $user->name_dj %> - <%= $mix->title %>
+	</h1>
+	<span class="date">
+		%= $mix->date_live
 	</span>
-% }
 
-<h2>Tracklist</h2>
-<ul class="tracklist">
-	% for my $track (@{$mix->tracks}) {
-		<li>
-			<%= $track->artist %> - <%= $track->title %>
-		</li>
+
+	% if ($mix->download_link) {
+		<span class="download_link">
+			<a href="<%= $mix->download_link %>">
+				download
+			</a>
+		</span>
 	% }
-</ul>
+
+	<h2>Tracklist</h2>
+	<ul class="collection tracklist">
+		% for my $track (@{$mix->tracks}) {
+			<li class="collection-item">
+				<%= $track->artist %> - <%= $track->title %>
+			</li>
+		% }
+	</ul>
+
+</div>

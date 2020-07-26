@@ -1,37 +1,85 @@
-<h1><%= $user->name_dj %></h1>
+<div class="row">
 
-% if ($user->is_live) {
-	<h2>LIVE NOW</h2>
-	<!-- add streaming link -->
-	<h3>Tracklist</h2>
-	<ul class="tracklist">
-		% for my $track (@{$user->live_mix->tracks}) {
-			<li><%= $track->artist %> - <%= $track->title %></li>
+	% if ($user->is_live) {
+		<div class="col s12 m8">
+
+			<div class="card blue-grey darken-1">
+				<div class="card-content white-text">
+					<span class="card-title">Live now</span>
+					<span><i class="material-icons circle">surround_sound</i>Currently playing: <%= 'foo' %></span>
+				</div>
+				<div class="card-action">
+					<a href="#">audio stream</a>
+					<a href="#">video stream</a>
+				</div>
+			</div>
+
+				<ul class="collection with-header">
+					<li class="collection-header"><h2>Current Tracklist</h2></li>
+					% for my $track (@{$user->live_mix->tracks}) {
+						<li class="collection-item">
+							<%= $track->artist %> - <%= $track->title %>
+						</li>
+					% }
+				</ul>
+
+		</div>
+
+		% if ($user->bio) {
+			<div class="col s12 m4">
+				<div class="card">
+					<div class="card-image">
+						<img src="image.jpg">
+					</div>
+					<div class="card-content">
+						<p><%= $user->bio %></p>
+					</div>
+				</div>
+			</div>
 		% }
-	</ul>
-% }
 
-% if ($user->bio) {
-	<p><%= $user->bio %></p>
-% }
+	% } else {
 
-<div id="previous_mixes">
+		% if ($user->bio) {
+			<div class="col s12 m8">
+				<div class="card">
+					<div class="card-image">
+						<img src="image.jpg">
+					</div>
+					<div class="card-content">
+						<p><%= $user->bio %></p>
+					</div>
+				</div>
+			</div>
+		% }
+
+	% }
+
 	% if ($user->mixes) {
-		<h2>Previous Mixes</h2>
-		<dl id="mixes">
-			% for my $mix (@{$user->mixes}) {
-				<dd>
-					<a href="<%= '/' . $user->slug . '/mix/' . $mix->id %>">
-						<%= $mix->date_live %>
-					</a>
-				</dd>
-				<dt>
-					<a href="<%= '/' . $user->slug . '/mix/' . $mix->id %>">
-						<%= $mix->title %>
-					</a>
-				</dt>
-			% }
-		</dl>
+		<div class="col s12 m4">
+			<div class="card">
+				<ul class="collection with-header">
+					<li class="collection-header"><h2>Latest Mixes</h2></li>
+					% for my $mix (@{$user->mixes}) {
+						<li class="collection-item avatar">
+							<i class="material-icons circle">music_note</i>
+							<span class="title">
+								<a href="<%= '/' . $user->slug . '/mix/' . $mix->id %>">
+									<%= $mix->title %>
+								</a>
+							</span>
+							<p>
+								<%= $mix->date_live %>
+							</p>
+							% if ($mix->download_link) {
+								<a class="secondary-content" href="<%= $mix->download_link %>">
+									<i class="material-icons">file_download</i>
+								</a>
+							% }
+						</li>
+					% }
+				</div>
+			</div>
+		</div>
 	% }
 </div>
-
