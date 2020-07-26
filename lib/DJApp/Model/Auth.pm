@@ -2,7 +2,6 @@ package DJApp::Model::Auth;
 use Moo;
 use Types::Standard qw(Str Bool);
 
-use lib qw(lib);
 use DJApp::DB;
 
 my $dbh = DJApp::DB->new();
