@@ -38,5 +38,15 @@
 		</style>
 	</head>
 
-  <body><%= content %></body>
+  <body>
+		% if (my $message = flash 'message') {
+			<p id="modal_notice"><%= $message %></p>
+		% }
+
+		% if (my $error = flash 'error') {
+			<p id="modal_error"><%= $error %></p>
+		% }
+
+		<%= content %>
+	</body>
 </html>
