@@ -41,37 +41,37 @@ sub _build_live_mix {
 sub _build_email {
 	my $self = shift;
 	my ($email) = $dbh->selectrow_array('select email from djapp.users where slug = ? limit 1', undef, $self->slug);
-	return $email || die 'user does not exist';
+	return $email;
 }
 
 sub _build_id {
 	my $self = shift;
 	my ($id) = $dbh->selectrow_array('select id from djapp.users where slug = ? limit 1', undef, $self->slug);
-	return $id || die 'user does not exist';
+	return $id;
 }
 
 sub _build_username {
 	my $self = shift;
 	my ($username) = $dbh->selectrow_array('select username from djapp.users where slug = ? limit 1', undef, $self->slug);
-	return $username || die 'user does not exist';
+	return $username;
 }
 
 sub _build_name_first {
 	my $self = shift;
 	my ($name_first) = $dbh->selectrow_array('select name_first from djapp.users where slug = ? limit 1', undef, $self->slug);
-	return $name_first || die 'user does not exist';
+	return $name_first;
 }
 
 sub _build_name_last {
 	my $self = shift;
 	my ($name_last) = $dbh->selectrow_array('select name_last from djapp.users where slug = ? limit 1', undef, $self->slug);
-	return $name_last || die 'user does not exist';
+	return $name_last;
 }
 
 sub _build_name_dj {
 	my $self = shift;
 	my ($name_dj) = $dbh->selectrow_array('select name_dj from djapp.users where slug = ? limit 1', undef, $self->slug);
-	return $name_dj || die 'user does not exist';
+	return $name_dj;
 }
 
 sub _build_bio {
@@ -105,7 +105,7 @@ has live_mix => (
 
 has email => (
 	is    => 'lazy'
-	, isa => Str
+	, isa => Str|Undef
 );
 
 has username => (

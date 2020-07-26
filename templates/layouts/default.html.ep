@@ -17,8 +17,9 @@
 				<div class="nav-wrapper deep-purple darken-4">
 					<a href="#" class="brand-logo"><%= $user->name_dj %></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Mixes</a></li>
+						<li><a href="/<%= $user->slug %>">Home</a></li>
+						<li><a href="/<%= $user->slug %>/mixes">Mixes</a></li>
+						<!--<li><div class="input-field"><input class="white-text" placeholder="Search" id="search" type="text"></div></li>-->
 					</ul>
 				</div>
 			</nav>

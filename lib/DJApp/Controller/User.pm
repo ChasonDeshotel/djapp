@@ -11,7 +11,7 @@ sub user_from_slug {
 
 sub view {
 	my $self = shift;
-	$self->stash(title => 'DJAPP - ' . $self->user_from_slug->name_dj, user => $self->user_from_slug);
+	$self->stash(title => 'DJAPP', user => $self->user_from_slug);
 }
 
 sub set_live {
