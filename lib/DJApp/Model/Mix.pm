@@ -2,7 +2,6 @@ package DJApp::Model::Mix;
 use Moo;
 use Types::Standard qw(Str Int Undef);
 use MooX::Types::MooseLike::Base qw(ArrayRef);
-use Time::Piece;
 
 use lib qw(lib);
 use DJApp::DB;
@@ -43,13 +42,19 @@ sub _build_tracks {
 	my $self = shift;
 
 	my @tracks;
-	for ($dbh->selectall_array('select play_order, track_id from djapp.tracklists where set_id = ? order by play_order', undef, $self->id)) {
+	my @rows = $dbh->selectall_array('select play_order, track_id from djapp.tracklists where set_id = ? order by play_order', undef, $self->id);
+	return undef unless @rows;
+
+	for (@rows) {
 		push @tracks, DJApp::Model::Track->new({
-			id => @$_[1]
-			, play_order => @$_[0]
-		});
-	}
+				id => @$_[1]
+				, play_order => @$_[0]
+			});
+		}
 	return \@tracks;
+
+#	return undef unless scalar @tracks;
+#	return \@tracks;
 	
 };
 
@@ -80,8 +85,8 @@ sub _build_date_live {
 
 has tracks => (
 	#isa => ArrayRef[DJApp::Model::Track]
-	isa => ArrayRef
-	, is => 'lazy'
+	# also isa Undef
+	is => 'lazy'
 );
 
 has user_id => (
