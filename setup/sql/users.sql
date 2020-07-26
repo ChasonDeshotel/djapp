@@ -10,5 +10,8 @@ create table djapp.users (
 	, bio text
 	, email text not null
 	, is_live boolean not null default false
+	, audio_stream_url text
+	, video_stream_url text
 	, enabled boolean not null default false
+	, theme_color text
 )
