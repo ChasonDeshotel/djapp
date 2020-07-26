@@ -44,6 +44,12 @@ sub _build_email {
 	return $email;
 }
 
+sub _build_theme_color {
+	my $self = shift;
+	my ($theme_color) = $dbh->selectrow_array('select theme_color from djapp.users where slug = ? limit 1', undef, $self->slug);
+	return $theme_color || 'light-blue accent-4';
+}
+
 sub _build_id {
 	my $self = shift;
 	my ($id) = $dbh->selectrow_array('select id from djapp.users where slug = ? limit 1', undef, $self->slug);
@@ -101,6 +107,11 @@ has is_live => (
 
 has live_mix => (
 	is    => 'lazy'
+);
+
+has theme_color => (
+	is    => 'lazy'
+	, isa => Str|Undef
 );
 
 has email => (
