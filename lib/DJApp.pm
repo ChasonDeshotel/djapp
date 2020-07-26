@@ -1,8 +1,6 @@
 package DJApp;
 use Mojo::Base 'Mojolicious';
-use DBIx::Connector;
 use Mojo::Util qw(secure_compare);
-use lib qw(lib);
 
 sub startup {
   my $self = shift;
@@ -10,7 +8,7 @@ sub startup {
   #$self->secrets($config->{secrets});
 	#$self->plugin('DefaultHelpers');
 	
-	$self->defaults(layout => 'default'); 
+	$self->defaults(layout => 'user-default'); 
 	
 	$self->helper(auth => sub {
 		if (secure_compare $self->req->url->to_abs->userinfo, 'user:pass') {
@@ -29,8 +27,8 @@ sub startup {
 	$r->get('/')->to(template => 'index');
 	$r->get('/register')->to(template => 'register');
 	$r->post('/register')->to(controller => 'Registration', action => 'register');
-	$r->get('/login')->to(controller => 'Auth', template => 'login');
-	$r->post('/login')->to(controller => 'Auth', action => 'log_in');
+	$r->get('/login')->to(controller => 'Auth', template => 'login', layout => 'default');
+	$r->post('/login')->to(controller => 'Auth', action => 'log_in', layout => 'default');
 
 	### user routes
 	$r->get('/:slug')->to(controller => 'User', action => 'view', template => 'user-page');
