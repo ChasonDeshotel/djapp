@@ -16,11 +16,15 @@
 
 			<ul class="collection with-header">
 				<li class="collection-header"><h2 class="flow-text">Current Tracklist</h2></li>
-				% for my $track (@{$user->live_mix->tracks}) {
-					<li class="collection-item">
-						<%= $track->artist %> - <%= $track->title %>
-					</li>
-				% }
+					% if ($user->live_mix->tracks) {
+						% for my $track (@{$user->live_mix->tracks}) {
+							<li class="collection-item">
+								<%= $track->artist %> - <%= $track->title %>
+							</li>
+						% }
+					% } else {
+							<li class="collection-item"></li>
+					% }
 			</ul>
 
 		</div>
