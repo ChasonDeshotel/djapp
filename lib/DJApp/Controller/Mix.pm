@@ -24,6 +24,7 @@ sub view {
 sub create {
 	# authenticate
 	my $self = shift;
+
 	my $res = DJApp::Model::Mix->new({
 		user_id => 1 # get from auth
 		, title => $self->param('title')
