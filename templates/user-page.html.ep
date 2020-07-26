@@ -1,25 +1,25 @@
 <h1><%= $user->name_dj %></h1>
 
-<% if ($user->is_live) { %> 
+% if ($user->is_live) {
 	<h2>LIVE NOW</h2>
 	<!-- add streaming link -->
 	<h3>Tracklist</h2>
 	<ul class="tracklist">
-		<% for my $track (@{$user->live_mix->tracks}) { %>
+		% for my $track (@{$user->live_mix->tracks}) {
 			<li><%= $track->artist %> - <%= $track->title %></li>
-		<% } %>
+		% }
 	</ul>
-<% } %>
+% }
 
-<% if ($user->bio) { %>
+% if ($user->bio) {
 	<p><%= $user->bio %></p>
-<% } %>
+% }
 
 <div id="previous_mixes">
-	<% if ($user->mixes) { %>
+	% if ($user->mixes) {
 		<h2>Previous Mixes</h2>
 		<dl id="mixes">
-			<% for my $mix (@{$user->mixes}) { %>
+			% for my $mix (@{$user->mixes}) {
 				<dd>
 					<a href="<%= '/' . $user->slug . '/mix/' . $mix->id %>">
 						<%= $mix->date_live %>
@@ -30,8 +30,8 @@
 						<%= $mix->title %>
 					</a>
 				</dt>
-			<% } %>
+			% }
 		</dl>
-	<% } %>
+	% }
 </div>
 
