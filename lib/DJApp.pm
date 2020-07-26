@@ -12,11 +12,6 @@ sub startup {
 	
 	$self->defaults(layout => 'default'); 
 	
-	my $conn = DBIx::Connector->new($config->{conn_str});
-	my $dbh = $conn->dbh;
-	$self->helper(dbh => sub { state $dbh = $conn->dbh });
-	$self->helper(conn => sub { state $conn = $conn });
-
 	$self->helper(auth => sub {
 		if (secure_compare $self->req->url->to_abs->userinfo, 'user:pass') {
 			$self->session(auth => 1);
@@ -29,6 +24,11 @@ sub startup {
 	});
 
 	my $r = $self->routes;
+
+	### home
+	$r->get('/')->to(template => 'index');
+	$r->get('/register')->to(template => 'register');
+	$r->post('/register')->to(controller => 'Registration', action => 'register');
 
 	### user routes
 	$r->get('/:slug')->to(controller => 'User', action => 'view', template => 'user-page');
@@ -45,12 +45,10 @@ sub startup {
 	$r->get('/mix/:id/:action')->to(controller => 'Mix');
 	$r->post('/mix/:action')->to(controller => 'Mix');
 
-
 	### tracklist routes
 
 	# should make this work with dates too
-	my $tracklist_id_format = qr/all|live|\d+/;
-
+	#my $tracklist_id_format = qr/all|live|\d+/;
 
 	# default to view all tracklists
 #	$r->get('/tracklist/:id/:action' => [
@@ -66,9 +64,6 @@ sub startup {
 #
 #	$r->post('/tracklist/new')->to(controller => 'Tracklist', action => 'new_tracklist');
 #
-#	## register new user routes
-#	$r->get ('/register')->to(controller => 'Registration', action => 'register');
-#	$r->post('/register')->to(controller => 'Registration', action => 'register_new_user');
 
 #	$r->post('/authtest' => sub {
 #		my $c = shift;
