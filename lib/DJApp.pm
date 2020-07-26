@@ -1,6 +1,7 @@
 package DJApp;
 use Mojo::Base 'Mojolicious';
 use Mojo::Util qw(secure_compare);
+use Mojolicious::Plugin::Authentication;
 
 sub startup {
   my $self = shift;
@@ -8,6 +9,13 @@ sub startup {
   #$self->secrets($config->{secrets});
 	#$self->plugin('DefaultHelpers');
 	
+	$self->plugin('authentication' => {
+		autoload_user   => 1
+		, session_key   => 'test'
+		, load_user     => sub { return 1 }
+		, validate_user => sub { return 1 }
+	});
+
 	$self->defaults(layout => 'user-default'); 
 	
 	$self->helper(auth => sub {
