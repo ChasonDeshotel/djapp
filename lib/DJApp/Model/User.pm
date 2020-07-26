@@ -156,7 +156,7 @@ has mixes => (
 
 has id  => (
 	is    => 'lazy'
-	, isa => Int
+	#, isa => Int
 );
 
 #has schedule => (

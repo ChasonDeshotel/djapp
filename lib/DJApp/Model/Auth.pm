@@ -17,6 +17,21 @@ sub _build_is_authorized {
 	return 0;
 }
 
+sub _build_uid {
+	my $self = shift;
+
+	if ($self->username eq 'test' and $self->password eq 'pw') {
+		return 1;
+	}
+
+	return undef;
+}
+
+has uid => (
+	is    => 'lazy'
+	, isa => Bool
+);
+
 has is_authorized => (
 	is    => 'lazy'
 	, isa => Bool
