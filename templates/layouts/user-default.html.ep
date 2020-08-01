@@ -24,26 +24,26 @@
 		<main>
 
 			<nav>
-				<div class="nav-wrapper <%= $user->theme_color %>">
-					<a href="/<%= $user->slug %>" class="brand-logo center"><%= $user->name_dj %></a>
+				<div class="nav-wrapper <%= $dj->theme_color %>">
+					<a href="/<%= $dj->slug %>" class="brand-logo center"><%= $dj->name_dj %></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
 
-						% if ($self->url_for eq '/' . $user->slug) {
+						% if ($self->url_for eq '/' . $dj->slug) {
 							<li class="active">
 						% } else {
 							<li>
 						% }
-							<a href="/<%= $user->slug %>">
+							<a href="/<%= $dj->slug %>">
 								Home
 							</a>
 						</li>
 
-						% if ($self->url_for eq '/' . $user->slug . '/mixes') {
+						% if ($self->url_for eq '/' . $dj->slug . '/mixes') {
 							<li class="active">
 						% } else {
 							<li>
 						% }
-							<a href="/<%= $user->slug %>/mixes">
+							<a href="/<%= $dj->slug %>/mixes">
 								Mixes
 							</a>
 						</li>

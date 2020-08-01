@@ -1,45 +1,57 @@
 package DJApp;
 use Mojo::Base 'Mojolicious';
-use Mojo::Util qw(secure_compare);
-use DJApp::Model::User;
-use DJApp::Controller::User;
+use DJApp::Model::DJ;
+use DJApp::Controller::DJ;
+use DJApp::Controller::Auth;
+
 
 sub startup {
   my $self = shift;
+
   my $config = $self->plugin('Config');
   #$self->secrets($config->{secrets});
 	#$self->plugin('DefaultHelpers');
 	
-	$self->defaults(layout => 'user-default'); 
+	$self->plugin('authentication' => {
+		autoload_user   => 1
+		, session_key   => 'djappkey'
+		, load_user     => sub { return DJApp::Controller::Auth::load_user(@_) }
+		, validate_user => sub { return DJApp::Controller::Auth::validate_user(@_) }
+	});
 
 	my $r = $self->routes;
 
-	### home
-	$r->get('/')->to(template => 'index');
-	$r->get('/register')->to(template => 'register');
-	$r->post('/register')->to(controller => 'Registration', action => 'register');
-	$r->get('/login')->to(controller => 'Auth', template => 'login', layout => 'default');
-	$r->post('/login')->to(controller => 'Auth', action => 'log_in', layout => 'default');
+#	### home
+#	$self->defaults(layout => 'default'); 
+#	$r->get('/')->to(template => 'index');
+#
+#	$r->get ('/register')->to(template => 'register');
+#	$r->post('/register')->to(controller => 'Registration', action => 'register');
+#
+	$r->get ('/login')->to(controller => 'Auth', template => 'login', layout => 'default');
+#	$r->post('/login')->to(controller => 'Auth', action => 'log_in');
+#	$r->post('/login')->to(controller => 'Auth', action => 'log_in');
+#
+#	### user routes
+#	$self->defaults(layout => 'user-default'); 
+#	$r->get('/:slug')->to(controller => 'DJ', action => 'view', template => 'user-page');
+#
+#
+#	### track routes
+#	$r->get('/track/:id')->to(controller => 'Track', action => 'view', layout => 'default');
+#	$r->get('/track/:id/:action')->to(controller => 'Track');
+#
+#	### mix routes
+#	$r->get('/:slug/mix/:id')->to(controller => 'Mix', action => 'view', template => 'mix');
+#	$r->get('/:slug/mixes')->to(controller => 'DJ', action => 'view_mixes', template => 'mixes');
+#	$r->get('/mix/:id')->to(controller => 'Mix', action => 'view');
+#	$r->get('/mix/:id/:action')->to(controller => 'Mix');
 
+	$r->post('/login')->to(controller => 'Auth', action => 'log_in');
 	my $auth_required = $r->under('/')->to('Auth#user_exists');
-	$auth_required->get('/logintest')->to(controller => 'Auth', action => 'test', template => 'user-page', layout => 'default');
-
-
-	### user routes
-	$r->get('/u/:slug')->to(controller => 'User', action => 'view', template => 'user-page');
-	$r->get('/u/:slug/set_live/:is_live')->to(controller => 'User', action => 'set_live', template => 'user-page');
-
-	### track routes
-	$r->get('/track/:id')->to(controller => 'Track', action => 'view');
-	$r->get('/track/:id/:action')->to(controller => 'Track');
-	$r->post('/track/:action')->to(controller => 'Track');
-
-	### mix routes
-	$r->get('/u/:slug/mix/:id')->to(controller => 'Mix', action => 'view', template => 'mix');
-	$r->get('/u/:slug/mixes')->to(controller => 'User', action => 'view_mixes', template => 'mixes');
-	$r->get('/mix/:id')->to(controller => 'Mix', action => 'view');
-	$r->get('/mix/:id/:action')->to(controller => 'Mix');
-	$r->post('/u/:slug/mix/:action')->to(controller => 'Mix');
+	$auth_required->post('/u/set_live/:is_live')->to(controller => 'User', action => 'set_live');
+	$auth_required->post('/track/:action')->to(controller => 'Track');
+	$auth_required->post('/:slug/mix/:action')->to(controller => 'Mix');
 
 	### tracklist routes
 

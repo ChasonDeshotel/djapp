@@ -1,6 +1,6 @@
 package DJApp::Model::Auth;
 use Moo;
-use Types::Standard qw(Str Bool);
+use Types::Standard qw(Str Bool Undef);
 
 use DJApp::DB;
 
@@ -17,24 +17,25 @@ sub _build_is_authorized {
 	return 0;
 }
 
-sub _build_uid {
+sub _build_auth_key {
 	my $self = shift;
 
 	if ($self->username eq 'test' and $self->password eq 'pw') {
-		return 1;
+		return 'abcd';
 	}
 
 	return undef;
 }
 
-has uid => (
-	is    => 'lazy'
+has is_authorized => (
+	is    => 'rw'
 	, isa => Bool
+	, default => 0
 );
 
-has is_authorized => (
+has auth_key => (
 	is    => 'lazy'
-	, isa => Bool
+	, isa => Str|Undef #undef if auth fails
 );
 
 has username => (

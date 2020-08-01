@@ -1,4 +1,4 @@
-package DJApp::Model::User;
+package DJApp::Model::DJ;
 use DJApp::DB;
 use Moo;
 use Types::Standard qw(Str Int Bool Undef);
@@ -17,7 +17,6 @@ sub ins {
 
 sub _build_slug {
 	my $self = shift;
-	return 0;
 	my ($slug) = $dbh->selectrow_array('select slug from djapp.users where id = ? limit 1', undef, $self->id);
 	return $slug;
 }
@@ -52,8 +51,6 @@ sub _build_theme_color {
 
 sub _build_id {
 	my $self = shift;
-	return '12345';
-
 	my ($id) = $dbh->selectrow_array('select id from djapp.users where slug = ? limit 1', undef, $self->slug);
 	return $id;
 }
@@ -155,19 +152,6 @@ has id  => (
 	is    => 'lazy'
 	, isa => Int
 );
-
-has auth_key  => (
-	is    => 'ro'
-	, isa => Str
-);
-
-has is_authorized => (
-	is    => 'rw'
-	, isa => Bool
-	, default => 0
-);
-
-1;
 
 #has schedule => (
 #	is    => 'lazy'
