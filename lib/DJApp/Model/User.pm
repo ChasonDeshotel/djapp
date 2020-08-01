@@ -1,13 +1,18 @@
 package DJApp::Model::User;
-use DJApp::DB;
 use Moo;
 use Types::Standard qw(Str Int Bool Undef);
 use MooX::Types::MooseLike::Base qw(ArrayRef);
 #use strictures 2;
 #use namespace::clean;
 use DJApp::Model::Mix;
+use DJApp::DB;
 
 my $dbh = DJApp::DB->new();
+
+## sub BUILD {
+# if supplied with username/password, do auth
+# return sensitive data only if auth'd
+#}
 
 sub ins {
 	my $self = shift;

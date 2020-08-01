@@ -1,22 +1,16 @@
 package DJApp::Controller::Auth;
 use Mojo::Base 'Mojolicious::Controller';
-use DJApp::Model::Auth;
-use DJApp::Model::User;
 use Mojolicious::Plugin::Authentication;
+use DJApp::Model::User;
+use DJApp::Model::Auth;
 
+## authentication plugin helper
 sub load_user {
 	my ($self, $auth_key) = @_;
-
-	my $user = DJApp::Model::User->new({auth_key => $auth_key});
-	$user->is_authorized(1);
-	
-	$self->app->log->info("build user with key $auth_key");
-	$self->app->log->info($user);
-	$self->session('user' => $user);
-
-	return $user
+	return DJApp::Model::User->new({ auth_key => $auth_key });
 }
 
+## authentication plugin helper
 sub validate_user {
 	my ($self, $username, $password) = @_;
 
@@ -29,22 +23,15 @@ sub validate_user {
 
 	if ($auth_key) {
 		$self->app->log->info("user $username successful login with key $auth_key");
-		$self->session(auth_key => $auth_key);
 		return $auth_key;
-
 	} else {
-		# login failed. delete current session
+		$self->app->log->info("user $username logged out due to failing login");
 		$self->logout();
-		#$self->session(expires => 1);
-		#$self->session('user')->is_authorized(0);
-		#$self->render(text => $self->session('user')->is_authorized);
-
-		#$self->redirect_to('/login');
 		return undef;
 	}
 }
 
-
+## actual route/endpoint for the login POST
 sub log_in {
 	my $self = shift;
 	
@@ -52,21 +39,21 @@ sub log_in {
 
 	if ($is_authorized) {
 		$self->flash(message => 'logged in');
-		$self->render(text => 'logged in: '.$self->session('user')->id);
+		$self->render(text => 'logged in: ' . $self->current_user->id);
 	} else {
 		$self->flash(message => 'not logged in');
 		$self->render(text => 'unauthorized');
 	}
-
 }
 
-sub user_exists {
+## route for checking auth status/redirect
+sub auth_or_redirect {
 	my $self = shift;
 	
 	if ($self->is_user_authenticated) {
 		return 1;
 	} else {
-		$self->flash(message=>'not logged in');
+		$self->flash(message => 'not logged in');
 		$self->redirect_to('/login');
 		return undef
 	}
