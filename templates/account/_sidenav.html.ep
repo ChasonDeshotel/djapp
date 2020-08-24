@@ -17,19 +17,6 @@
 			</ul>
 		</li>
 
-		<li class="bold">
-			% if ($fixed) {
-				<a class="waves-effect waves-teal" href="/<%= $user->username %>">
-			% } else {
-				<a class="waves-effect waves-teal sidenav-close" href="#!">
-			% }
-				<i class="material-icons">
-					account_box
-				</i>
-				Return to profile
-			</a>
-		</li>
-
 		% if ($self->url_for eq '/account/settings') {
 		<li class="active">
 		% } else {
@@ -40,6 +27,17 @@
 					person
 				</i>
 				Account
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/mixes') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/mixes" class="waves-effect waves-teal">
+				<i class="material-icons">library_music</i>
+				Mixes
 			</a>
 		</li>
 
@@ -76,17 +74,6 @@
 			</a>
 		</li>
 
-		% if ($self->url_for eq '/account/mixes') {
-		<li class="active">
-		% } else {
-		<li class="bold">
-		% }
-			<a href="/account/mixes" class="waves-effect waves-teal">
-				<i class="material-icons">library_music</i>
-				Mixes
-			</a>
-		</li>
-
 		% if ($self->url_for eq '/account/stats') {
 		<li class="active">
 		% } else {
@@ -95,6 +82,19 @@
 			<a href="/account/stats" class="waves-effect waves-teal">
 				<i class="material-icons">trending_up</i>
 				Statistics
+			</a>
+		</li>
+
+		<li class="bold">
+			% if ($fixed) {
+				<a class="waves-effect waves-teal" href="/<%= $user->username %>">
+			% } else {
+				<a class="waves-effect waves-teal sidenav-close" href="#!">
+			% }
+				<i class="material-icons">
+					account_box
+				</i>
+				Return to profile
 			</a>
 		</li>
 

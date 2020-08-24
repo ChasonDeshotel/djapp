@@ -1,2 +1,26 @@
 %= include '/account/_header', title => 'Mixes'
 
+<div class="row">
+	<div class="col s12 m12">
+		<ul class="collection">
+			% for my $mix (@{$user->mixes}) {
+				<li class="collection-item avatar">
+					<i class="material-icons circle">music_note</i>
+					<span class="title">
+						<a href="<%= '/account/mix/' . $mix->id . '/edit' %>">
+							<%= $mix->title %>
+						</a>
+					</span>
+					<p>
+						<%= $mix->date_live %>
+					</p>
+					% if ($mix->download_link) {
+						<a class="secondary-content" href="<%= $mix->download_link %>">
+							<i class="material-icons">file_download</i>
+						</a>
+					% }
+				</li>
+			% }
+		</ul>
+	</div>
+</div>

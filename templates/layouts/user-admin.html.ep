@@ -18,6 +18,38 @@
 					padding-left: 0;
 				}
 			}
+
+			body.dragging, body.dragging * {
+				cursor: move !important;
+			}
+
+			.dragged {
+				position: absolute;
+				opacity: 0.5;
+				z-index: 2000;
+			}
+
+			ol#edit_tracklist li.placeholder {
+				position: relative;
+				/** More li styles **/
+			}
+			ol#edit_tracklist li.placeholder:before {
+				position: absolute;
+				/** Define arrowhead **/
+			}
+
+			/* list container */
+			#edit_tracklist {
+				counter-reset: seq;
+			}
+
+			/* list item to add number */
+			#edit_tracklist li>span:before {
+				counter-increment: seq;
+				content: "("counter(seq)") ";
+			}
+
+
 		</style>
 
 		<script
@@ -25,6 +57,11 @@
 			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 			crossorigin="anonymous">
 		</script>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js"
+			integrity="sha512-9pm50HHbDIEyz2RV/g2tn1ZbBdiTlgV7FwcQhIhvykX6qbQitydd6rF19iLmOqmJVUYq90VL2HiIUHjUMQA5fw=="
+			crossorigin="anonymous"></script>
 
 	</head>
   <body>

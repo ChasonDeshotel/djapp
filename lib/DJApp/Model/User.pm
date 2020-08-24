@@ -30,6 +30,13 @@ sub set_live {
 	return $is_live;
 }
 
+sub owns_mix {
+	my ($self, $mix_id) = @_;
+	my ($owns_mix) = $dbh->selectrow_array('select 1 from djapp.mixes where id = ? and user_id = ?', undef, $mix_id, $self->id);
+	return $owns_mix || 0;
+	
+}
+
 sub _build_is_live {
 	my $self = shift;
 	my ($is_live) = $dbh->selectrow_array('select is_live from djapp.users where username = ? limit 1', undef, $self->username);
@@ -92,7 +99,7 @@ sub _build_bio {
 sub _build_mixes {
 	my $self = shift;
 	my @mixes;
-	for (@{$dbh->selectcol_arrayref('select id from djapp.mixes where user_id = ? order by date_live', undef, $self->id)}) {
+	for (@{$dbh->selectcol_arrayref('select id from djapp.mixes where user_id = ? order by date_live desc', undef, $self->id)}) {
 		push(@mixes, DJApp::Model::Mix->new({id => $_}));
 	}
 	return \@mixes;

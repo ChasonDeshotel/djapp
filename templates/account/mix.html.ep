@@ -1,0 +1,127 @@
+%= include '/account/_header', title => 'Edit Mix'
+
+<div container>
+	<form action="/account/mix/edit" enctype="multipart/form-data" method="POST">
+
+		<div class="row">
+			<div class="input-field col s6">
+				<input name="title" value="<%= $mix->title %>" id="title" type="text" class="validate">
+				<label for="name_first" class="language-markup active">Title</label>
+			</div>
+
+			<div class="input-field col s6">
+				<input name="date_live" value="<%= $mix->date_live %>" id="date_live" type="text" class="validate">
+				<label for="name_first" class="language-markup active">Date Live</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Tracklist</span>
+					<ol id="edit_tracklist" class="collection">
+
+						<li class="collection-item">
+							A Song
+						</li>
+
+						<li class="collection-item">
+							Another Song
+						</li>
+
+						<li class="collection-item">
+							Yet Another Song
+						</li>
+
+						<li class="collection-item">
+							Wow! Now That's What I Call a Song!
+						</li>
+
+					</ol>
+
+					<!--
+					<div class="input-field">
+						<input id="add_track" type="text">
+						<label for="add_track" class="language-markup active">Add Track</label>
+					</div>
+					-->
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<!-- allow file play here -->
+
+			<div class="file-field input-field">
+				<div class="btn">
+					<span>File</span>
+					<input
+						name="audio_file"
+						type="file"
+						<!-- accept="blah mp3 blah" -->
+					>
+				</div>
+				<div class="file-path-wrapper">
+					<input name="audio_file_path" placeholder="<%= $mix->filename %>" class="file-path validate" type="text">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="file-field input-field">
+				<div class="btn">
+					<span>Thumbnail</span>
+					<input
+						name="image_file"
+						type="file"
+						accept="image/x-png,image/gif,image/jpeg, image/jpg"
+					>
+				</div>
+				<div class="file-path-wrapper">
+					<input name="image_file_path" placeholder="<%= $mix->image_filename %>" class="file-path validate" type="text">
+				</div>
+			</div>
+		</div>
+
+		<button class="btn waves-effect waves-light" type="submit" name="submit">Update
+			<i class="material-icons right">send</i>
+		</button>
+
+	</form>
+</div>
+
+<script type="text/javascript">
+	$('.collection').sortable({
+		appendTo: document.body
+	});
+
+	/**
+	$('form').submit(function(e) {
+
+		let formData = new FormData()
+
+		formData.append('audio_file', $('#audio_file')[0].files[0]);
+		formData.append('image_file', $('#image_file')[0].files[0]);
+
+		$.ajax({
+				url: '/account/mix/edit',
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: formData,
+				success: function(res){
+						console.log('successfully')
+				},
+				error: function(){
+						console.log('error')
+				}
+		})
+			.done(function(data) {
+				console.log(data);
+			});
+		e.preventDefault();
+	});
+	**/
+
+</script>

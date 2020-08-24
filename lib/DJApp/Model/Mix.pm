@@ -65,8 +65,26 @@ sub _build_title {
 
 sub _build_file_id {
 	my $self = shift;
-	my ($file_id) = $dbh->selectrow_array('select file_id from djapp.mixes where id = ? limit 1', undef, $self->id);
+	my ($file_id) = $dbh->selectrow_array('select file_id from djapp.mixes where id = ?', undef, $self->id);
 	return $file_id
+}
+
+sub _build_filename {
+	my $self = shift;
+	my ($filename) = $dbh->selectrow_array('select filename from djapp.files where id = ?', undef, $self->file_id);
+	return $filename
+}
+
+sub _build_image_id {
+	my $self = shift;
+	my ($image_id) = $dbh->selectrow_array('select image_id from djapp.mixes where id = ?', undef, $self->id);
+	return $image_id
+}
+
+sub _build_image_filename {
+	my $self = shift;
+	my ($filename) = $dbh->selectrow_array('select filename from djapp.images where id = ?', undef, $self->image_id);
+	return $filename
 }
 
 sub _build_download_link {
@@ -111,6 +129,21 @@ has download_link => (
 has file_id => (
 	is    => 'lazy'
 	, isa => Int|Undef
+);
+
+has image_id => (
+	is    => 'lazy'
+	, isa => Int|Undef
+);
+
+has filename => (
+	is    => 'lazy'
+	, isa => Str|Undef
+);
+
+has image_filename => (
+	is    => 'lazy'
+	, isa => Str|Undef
 );
 
 has date_live => (

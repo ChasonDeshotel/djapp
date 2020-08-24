@@ -26,13 +26,22 @@ sub startup {
 
 	### auth required
 	my $auth_required = $r->under('/')->to('Auth#auth_or_redirect');
-	$auth_required->get('/account/settings')->to(controller => 'Account', action => 'settings', layout => 'user-admin');
-	$auth_required->get('/account/connections')->to(controller => 'Account', action => 'connections', layout => 'user-admin');
-	$auth_required->get('/account/post')->to(controller => 'Account', action => 'post', layout => 'user-admin');
-	$auth_required->get('/account/schedule')->to(controller => 'Account', action => 'schedule', layout => 'user-admin');
-	$auth_required->get('/account/mixes')->to(controller => 'Account', action => 'mixes', layout => 'user-admin');
-	$auth_required->get('/account/stats')->to(controller => 'Account', action => 'statistics', layout => 'user-admin');
+	$auth_required->get ('/account/settings'    )->to(controller => 'Account', action => 'settings'   , layout => 'user-admin');
+	$auth_required->get ('/account/connections' )->to(controller => 'Account', action => 'connections', layout => 'user-admin');
+	$auth_required->get ('/account/post'        )->to(controller => 'Account', action => 'post'       , layout => 'user-admin');
+	$auth_required->get ('/account/schedule'    )->to(controller => 'Account', action => 'schedule'   , layout => 'user-admin');
+	$auth_required->get ('/account/mixes'       )->to(controller => 'Account', action => 'mixes'      , layout => 'user-admin');
+	$auth_required->get ('/account/stats'       )->to(controller => 'Account', action => 'statistics' , layout => 'user-admin');
+	$auth_required->post('/account/mix/edit'    )->to(controller => 'Account', action => 'edit_mix'   , layout => 'user-admin');
+	$auth_required->get ('/account/mix/:id/edit')->to(controller => 'Account', action => 'mix'        , layout => 'user-admin');
 
+	$auth_required->post('/u/set_live/:is_live')->to(controller => 'User', action => 'set_live');
+	$auth_required->post('/track/:action')->to(controller => 'Track');
+	$auth_required->post('/:username/mix/:action')->to(controller => 'Mix');
+
+	### api
+	#$r->get('/api/tracklist/:id');
+	
 
 	### track routes
 	$r->get('/track/:id')->to(controller => 'Track', action => 'view', layout => 'default');
@@ -51,9 +60,6 @@ sub startup {
 	$r->post('/register')->to(controller => 'Registration', action => 'register');
 	$r->get ('/logoff')->to(controller => 'Auth', action => 'log_out');
 
-	$auth_required->post('/u/set_live/:is_live')->to(controller => 'User', action => 'set_live');
-	$auth_required->post('/track/:action')->to(controller => 'Track');
-	$auth_required->post('/:username/mix/:action')->to(controller => 'Mix');
 
 	### user routes
 	$r->get('/:username')->to(controller => 'User', action => 'view', template => 'user-page', layout => 'user-default');
