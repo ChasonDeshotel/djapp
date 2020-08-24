@@ -5,20 +5,30 @@ use DJApp::Model::User;
 sub set_live {
 	my $self = shift;
 
-	my $is_live = $self->param('is_live');
-	#$self->render(json => {ay => 'yes'});
+	$self->current_user->set_live($self->param('is_live'));
+
 	$self->render(json => {
-		auth_key  => $self->session('auth_key')
-		, user    => $self->session('user')
-		, is_live => 1
+		user_key  => $self->current_user->user_key
+		, user    => $self->current_user->username
+		, is_live => $self->current_user->is_live
 	});
+}
 
+sub user_from_username {
+	my $self = shift;
+	return DJApp::Model::User->new({
+		username => $self->param('username')
+	});
+}	
 
-	#$self->session('user')->set_live($self->param('is_live'));
+sub view {
+	my $self = shift;
+	$self->stash(title => 'DJAPP', user => $self->user_from_username, current_user => $self->current_user);
+}
 
-	#$self->user_from_slug->set_live($self->param('is_live'));
-	#$self->render(json => {'is_live' => $self->user_from_slug->is_live});
+sub view_mixes {
+	my $self = shift;
+	$self->stash(title => 'DJAPP', user => $self->user_from_username, current_user => $self->current_user);
 }
 
 1;
-

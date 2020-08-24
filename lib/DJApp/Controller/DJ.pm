@@ -5,7 +5,7 @@ use DJApp::Model::DJ;
 sub dj_from_slug {
 	my $self = shift;
 	return DJApp::Model::DJ->new({
-		slug => $self->param('slug')
+		username => $self->param('username')
 	});
 }	
 

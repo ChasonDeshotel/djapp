@@ -1,0 +1,9 @@
+%= include '/account/_header', title => 'Connections'
+
+<div class="row">
+	<ul>
+		<li>Soundcloud</li>
+		<li>Mixcloud</li>
+		<li>Facebook</li>
+	</ul>
+</div>

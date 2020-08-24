@@ -33,7 +33,7 @@ sub set_live {
 sub _build_is_live {
 	my $self = shift;
 	my ($is_live) = $dbh->selectrow_array('select is_live from djapp.users where username = ? limit 1', undef, $self->username);
-	return $is_live;
+	return $is_live || 0;
 }
 
 sub _build_live_mix {
@@ -167,12 +167,6 @@ has user_key  => (
 	is    => 'ro'
 	, isa => Str
 );
-
-#has is_authorized => (
-#	is    => 'rw'
-#	, isa => Bool
-#	, default => 0
-#);
 
 #has schedule => (
 #	is    => 'lazy'

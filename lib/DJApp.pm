@@ -1,7 +1,5 @@
 package DJApp;
 use Mojo::Base 'Mojolicious';
-use DJApp::Model::DJ;
-use DJApp::Controller::DJ;
 use DJApp::Controller::Auth;
 
 
@@ -24,34 +22,41 @@ sub startup {
 	### similar post routes return JSON?
 
 	### home
-	$self->defaults(layout => 'default'); 
-	$r->get('/')->to(template => 'index');
+	$r->get('/')->to(template => 'index', layout => 'default');
 
-	### user routes
-	$self->defaults(layout => 'user-default'); 
-	$r->get('/:slug')->to(controller => 'DJ', action => 'view', template => 'user-page');
+	### auth required
+	my $auth_required = $r->under('/')->to('Auth#auth_or_redirect');
+	$auth_required->get('/account/settings')->to(controller => 'Account', action => 'settings', layout => 'user-admin');
+	$auth_required->get('/account/connections')->to(controller => 'Account', action => 'connections', layout => 'user-admin');
+	$auth_required->get('/account/post')->to(controller => 'Account', action => 'post', layout => 'user-admin');
+	$auth_required->get('/account/schedule')->to(controller => 'Account', action => 'schedule', layout => 'user-admin');
+	$auth_required->get('/account/mixes')->to(controller => 'Account', action => 'mixes', layout => 'user-admin');
+	$auth_required->get('/account/stats')->to(controller => 'Account', action => 'statistics', layout => 'user-admin');
+
 
 	### track routes
 	$r->get('/track/:id')->to(controller => 'Track', action => 'view', layout => 'default');
 	$r->get('/track/:id/:action')->to(controller => 'Track');
 
 	### mix routes
-	$r->get('/:slug/mix/:id')->to(controller => 'Mix', action => 'view', template => 'mix');
-	$r->get('/:slug/mixes')->to(controller => 'DJ', action => 'view_mixes', template => 'mixes');
-	$r->get('/mix/:id')->to(controller => 'Mix', action => 'view');
-	$r->get('/mix/:id/:action')->to(controller => 'Mix');
+	$r->get('/:username/mix/:id')->to(controller => 'Mix', action => 'view', template => 'mix', layout => 'user-default');
+	$r->get('/:username/mixes')->to(controller => 'User', action => 'view_mixes', template => 'mixes', layout => 'user-default');
+	$r->get('/mix/:id')->to(controller => 'Mix', action => 'view', layout => 'user-default');
+	$r->get('/mix/:id/:action')->to(controller => 'Mix', layout => 'user-default');
 
 	### auth routes
   $r->get ('/login')->to(controller => 'Auth', template => 'login', layout => 'default');
 	$r->post('/login')->to(controller => 'Auth', action => 'log_in');
 	$r->get ('/register')->to(template => 'register');
 	$r->post('/register')->to(controller => 'Registration', action => 'register');
+	$r->get ('/logoff')->to(controller => 'Auth', action => 'log_out');
 
-	### auth required
-	my $auth_required = $r->under('/')->to('Auth#auth_or_redirect');
 	$auth_required->post('/u/set_live/:is_live')->to(controller => 'User', action => 'set_live');
 	$auth_required->post('/track/:action')->to(controller => 'Track');
-	$auth_required->post('/:slug/mix/:action')->to(controller => 'Mix');
+	$auth_required->post('/:username/mix/:action')->to(controller => 'Mix');
+
+	### user routes
+	$r->get('/:username')->to(controller => 'User', action => 'view', template => 'user-page', layout => 'user-default');
 
 	### tracklist routes
 

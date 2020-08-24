@@ -6,8 +6,9 @@ use DJApp::Model::Auth;
 
 ## authentication plugin helper
 sub load_user {
-	my ($self, $auth_key) = @_;
-	return DJApp::Model::User->new({ auth_key => $auth_key });
+	my ($self, $user_key) = @_;
+	my $user = DJApp::Model::User->new({ user_key => $user_key });
+	return $user;
 }
 
 ## authentication plugin helper
@@ -16,14 +17,16 @@ sub validate_user {
 
 	$self->app->log->info("user $username attempting login");
 
-	my $auth_key = DJApp::Model::Auth->new({
+	my $user_key = DJApp::Model::Auth->new({
 		username   => $username
 		, password => $password
-	})->auth_key;
+	})->user_key;
 
-	if ($auth_key) {
-		$self->app->log->info("user $username successful login with key $auth_key");
-		return $auth_key;
+	$self->app->log->info("$user_key") if $user_key;
+
+	if ($user_key) {
+		$self->app->log->info("user $username successful login with key $user_key");
+		return $user_key;
 	} else {
 		$self->app->log->info("user $username logged out due to failing login");
 		$self->logout();
@@ -38,12 +41,19 @@ sub log_in {
 	my $is_authorized = $self->authenticate($self->param('username'), $self->param('password'));
 
 	if ($is_authorized) {
-		$self->flash(message => 'logged in');
-		$self->render(text => 'logged in: ' . $self->current_user->id);
+		$self->flash(notice => {title => 'Welcome', text => 'Welcome, '.$self->current_user->name_first});
+		$self->redirect_to('/'.$self->current_user->username);
 	} else {
-		$self->flash(message => 'not logged in');
-		$self->render(text => 'unauthorized');
+		$self->flash(notice => {title => 'Error', text => 'Not logged in'});
+		$self->redirect_to('/login');
 	}
+}
+
+sub log_out {
+	my $self = shift;
+	my $username = $self->current_user->username;
+	$self->logout;
+	$self->redirect_to('/'.$username);
 }
 
 ## route for checking auth status/redirect
@@ -53,7 +63,7 @@ sub auth_or_redirect {
 	if ($self->is_user_authenticated) {
 		return 1;
 	} else {
-		$self->flash(message => 'not logged in');
+		$self->flash(error => 'not logged in');
 		$self->redirect_to('/login');
 		return undef
 	}

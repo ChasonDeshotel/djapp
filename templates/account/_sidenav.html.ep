@@ -1,0 +1,112 @@
+<div class="container">
+	% if ($fixed) {
+	<ul id="slide-out" class="sidenav sidenav-fixed">
+	% } else {
+	<ul id="slide-out" class="sidenav">
+	% }
+
+		<li>
+			<ul class="collection">
+				<li class="collection-item avatar">
+					<img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle">
+					<span class="title"><%=$user->username%></span>
+					<p><%=$user->name_first%> <%=$user->name_last%>
+					<br><%=$user->email%>
+					</p>
+				</li>
+			</ul>
+		</li>
+
+		<li class="bold">
+			% if ($fixed) {
+				<a class="waves-effect waves-teal" href="/<%= $user->username %>">
+			% } else {
+				<a class="waves-effect waves-teal sidenav-close" href="#!">
+			% }
+				<i class="material-icons">
+					account_box
+				</i>
+				Return to profile
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/settings') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/settings" class="waves-effect waves-teal">
+				<i class="material-icons">
+					person
+				</i>
+				Account
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/connections') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/connections" class="waves-effect waves-teal">
+				<i class="material-icons">cloud</i>
+				Connections
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/post') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/post" class="waves-effect waves-teal">
+				<i class="material-icons">cloud_upload</i>
+				Post
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/schedule') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/schedule" class="waves-effect waves-teal">
+				<i class="material-icons">access_alarm</i>
+				Schedule
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/mixes') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/mixes" class="waves-effect waves-teal">
+				<i class="material-icons">library_music</i>
+				Mixes
+			</a>
+		</li>
+
+		% if ($self->url_for eq '/account/stats') {
+		<li class="active">
+		% } else {
+		<li class="bold">
+		% }
+			<a href="/account/stats" class="waves-effect waves-teal">
+				<i class="material-icons">trending_up</i>
+				Statistics
+			</a>
+		</li>
+
+		<li class="bold">
+			<a href="/logoff" class="waves-effect waves-teal">
+				<i class="material-icons">exit_to_app</i>
+				Sign out
+			</a>
+		</li>
+
+		<li><div class="divider"></div></li>
+		<li><a class="subheader">Subheader</a></li>
+		<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+	</ul>
+</div>

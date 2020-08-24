@@ -7,7 +7,7 @@
 					<li class="collection-item avatar">
 						<i class="material-icons circle">music_note</i>
 						<span class="title">
-							<a href="<%= '/' . $user->slug . '/mix/' . $mix->id %>">
+							<a href="<%= '/' . $user->username . '/mix/' . $mix->id %>">
 								<%= $mix->title %>
 							</a>
 						</span>

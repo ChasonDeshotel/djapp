@@ -1,5 +1,5 @@
 <div class="row">
-	% if ($dj->is_live) {
+	% if ($user->is_live) {
 		<div class="col s12 m8">
 
 			<div class="card blue-grey darken-1">
@@ -16,8 +16,8 @@
 
 			<ul class="collection with-header">
 				<li class="collection-header"><h2 class="flow-text">Current Tracklist</h2></li>
-					% if ($dj->live_mix->tracks) {
-						% for my $track (@{$dj->live_mix->tracks}) {
+					% if ($user->live_mix->tracks) {
+						% for my $track (@{$user->live_mix->tracks}) {
 							<li class="collection-item">
 								<%= $track->artist %> - <%= $track->title %>
 							</li>
@@ -29,15 +29,15 @@
 
 		</div>
 
-		% if ($dj->bio) {
+		% if ($user->bio) {
 			<div class="col s12 m4">
 				<div class="card">
 					<div class="card-image">
 						<img src="https://i.ytimg.com/vi/eEeR9pGxeEQ/maxresdefault.jpg">
-						<span class="card-title"><%= $dj->name_dj %></span>
+						<span class="card-title"><%= $user->name_dj %></span>
 					</div>
 					<div class="card-content">
-						<p><%= $dj->bio %></p>
+						<p><%= $user->bio %></p>
 					</div>
 				</div>
 			</div>
@@ -45,15 +45,15 @@
 
 	% } else {
 
-		% if ($dj->bio) {
+		% if ($user->bio) {
 			<div class="col s12 m8">
 				<div class="card">
 					<div class="card-image">
 						<img src="https://i.ytimg.com/vi/eEeR9pGxeEQ/maxresdefault.jpg">
-						<span class="card-title"><%= $dj->name_dj %></span>
+						<span class="card-title"><%= $user->name_dj %></span>
 					</div>
 					<div class="card-content">
-						<p><%= $dj->bio %></p>
+						<p><%= $user->bio %></p>
 					</div>
 				</div>
 			</div>
@@ -61,16 +61,16 @@
 
 	% }
 
-	% if ($dj->mixes) {
+	% if ($user->mixes) {
 		<div class="col s12 m4">
 			<div class="card">
 				<ul class="collection with-header">
 					<li class="collection-header"><h2 class="flow-text">Latest Mixes</h2></li>
-					% for my $mix (@{$dj->mixes}) {
+					% for my $mix (@{$user->mixes}) {
 						<li class="collection-item avatar">
 							<i class="material-icons circle">music_note</i>
 							<span class="title">
-								<a href="<%= '/' . $dj->slug . '/mix/' . $mix->id %>">
+								<a href="<%= '/' . $user->username . '/mix/' . $mix->id %>">
 									<%= $mix->title %>
 								</a>
 							</span>

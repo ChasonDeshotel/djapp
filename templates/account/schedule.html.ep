@@ -1,0 +1,1 @@
+%= include '/account/_header', title => 'Schedule'

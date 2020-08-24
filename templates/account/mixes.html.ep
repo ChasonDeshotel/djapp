@@ -1,0 +1,2 @@
+%= include '/account/_header', title => 'Mixes'
+
