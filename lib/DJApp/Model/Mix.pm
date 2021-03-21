@@ -37,22 +37,36 @@ sub del {
 	return $sth->execute($self->id);
 }
 
-sub _build_tracks {
+sub _build_tracklist {
 	my $self = shift;
 
 	my @tracks;
-	my @rows = $dbh->selectall_array('select play_order, track_id from djapp.tracklists where set_id = ? order by play_order', undef, $self->id);
+	my @rows = $dbh->selectall_array(
+																		'select tl.play_order, t.artist, t.title from djapp.tracks as t join djapp.tracklists as tl on t.id = tl.track_id where tl.mix_id = ? order by play_order desc', undef, $self->id
+																	);
 	return undef unless @rows;
 
 	for (@rows) {
 		push @tracks, DJApp::Model::Track->new({
-				id => @$_[1]
-				, play_order => @$_[0]
+				play_order => @$_[0]
+				, artist   => @$_[1]
+				, title    => @$_[2]
 			});
 		}
 	return \@tracks;
 
-#	return undef unless scalar @tracks;
+#	$self->render(json => {play_order => @$_[1], artist => @$_[2], artist => @$_[2]});
+
+
+
+#	for (@rows) {
+#		push @tracks, DJApp::Model::Track->new({
+#				id => @$_[1]
+#				, play_order => @$_[0]
+#				, artist => @$_[0]
+#				, title  => @$_[0]
+#			});
+#		}
 #	return \@tracks;
 	
 };
@@ -100,10 +114,10 @@ sub _build_date_live {
 	return $date_live;
 }
 
-has tracks => (
+has tracklist => (
 	#isa => ArrayRef[DJApp::Model::Track]
-	# also isa Undef
-	is => 'lazy'
+	isa => ArrayRef|Undef
+	, is => 'lazy'
 );
 
 has user_id => (

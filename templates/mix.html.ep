@@ -29,8 +29,8 @@
 		</li>
 
 
-		% if ($mix->tracks) {
-			% for my $track (@{$mix->tracks}) {
+		% if ($mix->tracklist) {
+			% for my $track (@{$mix->tracklist}) {
 				<li class="collection-item avatar">
 					<img class="circle" src="https://www.demilked.com/magazine/wp-content/uploads/2015/01/age-of-happiness-active-seniors-vladimir-yakovlev-5.jpg">
 					<span class="artist grey-text text-darken-1"><strong><%= $track->artist %></strong></span><br>

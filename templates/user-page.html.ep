@@ -16,8 +16,8 @@
 
 			<ul class="collection with-header">
 				<li class="collection-header"><h2 class="flow-text">Current Tracklist</h2></li>
-					% if ($user->live_mix->tracks) {
-						% for my $track (@{$user->live_mix->tracks}) {
+					% if ($user->live_mix->tracklist) {
+						% for my $track (@{$user->live_mix->tracklist}) {
 							<li class="collection-item">
 								<%= $track->artist %> - <%= $track->title %>
 							</li>
